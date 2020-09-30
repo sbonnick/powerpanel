@@ -1,0 +1,20 @@
+name: Publish Docker Image
+
+on:
+  schedule:
+    - cron:  '0 0 * * 0'
+  push:
+    branches:
+      - master
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: sbonnick/powerpanel
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          snapshot: true   
